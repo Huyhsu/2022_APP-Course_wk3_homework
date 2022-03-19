@@ -1,14 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View, StatusBar, SafeAreaView } from "react-native";
 
+import Header from "./src/components/Header";
 import BookList from "./src/components/BookList";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
+    <SafeAreaView style={styles.container}>
+      <StatusBar />
+      <Header />
       <BookList />
-    </View>
+    </SafeAreaView>
   );
 }
 

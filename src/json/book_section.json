@@ -25,17 +25,20 @@
       {
         "title": "Yves Saint Laurent",
         "author": "Suzy Menkes ",
-        "image": "https://github.com/Huyhsu/2022_APP-Course_wk3_homework/blob/master/src/img/img_book_ysl.png?raw=true"
+        "image": "https://github.com/Huyhsu/2022_APP-Course_wk3_homework/blob/master/src/img/img_book_ysl.png?raw=true",
+        "star": [true, true, true, true, false]
       },
       {
         "title": "The Book of Signs",
         "author": "Rudolf Koch ",
-        "image": "https://github.com/Huyhsu/2022_APP-Course_wk3_homework/blob/master/src/img/img_book_tbos.png?raw=true"
+        "image": "https://github.com/Huyhsu/2022_APP-Course_wk3_homework/blob/master/src/img/img_book_tbos.png?raw=true",
+        "star": [true, true, true, false, false]
       },
       {
         "title": "Stitched Up",
         "author": "Tansy E. Hoskins",
-        "image": "https://github.com/Huyhsu/2022_APP-Course_wk3_homework/blob/master/src/img/img_book_stitchedup.png?raw=true"
+        "image": "https://github.com/Huyhsu/2022_APP-Course_wk3_homework/blob/master/src/img/img_book_stitchedup.png?raw=true",
+        "star": [true, true, true, false, false]
       }
     ]
   }

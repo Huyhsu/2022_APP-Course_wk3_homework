@@ -1,5 +1,5 @@
 import React from "react-native";
-import { Text, FlatList, SectionList, StyleSheet } from "react-native";
+import { View, Text, FlatList, SectionList, StyleSheet } from "react-native";
 
 import sections from "../json/book_section.json";
 import BookCard from "./BookCard";
@@ -7,8 +7,8 @@ import BookCard from "./BookCard";
 const BookList = () => {
   // Header
   const renderSectionHeader = ({ section: { title, data } }) => (
-    <>
-      <Text>{title}</Text>
+    <View style={styles.sectionHeaderContainerStyle}>
+      <Text style={styles.titleTextStyle}>{title}</Text>
       <FlatList
         horizontal={true}
         data={data}
@@ -16,7 +16,7 @@ const BookList = () => {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.title}
       />
-    </>
+    </View>
   );
   // Item
   const renderSectionItem = () => null;
@@ -24,7 +24,7 @@ const BookList = () => {
   return (
     <SectionList
       sections={sections}
-      contentContainerStyle={{ paddingHorizontal: 10 }}
+      // contentContainerStyle={{ paddingHorizontal: 10 }}
       stickySectionHeadersEnabled={false}
       showsHorizontalScrollIndicator={false}
       renderSectionHeader={renderSectionHeader}
@@ -33,5 +33,18 @@ const BookList = () => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  sectionHeaderContainerStyle: {
+    paddingLeft: 20,
+    marginBottom: 16,
+  },
+  titleTextStyle: {
+    fontSize: 24,
+    fontFamily: "Roboto",
+    fontWeight: "500",
+    marginBottom: 16,
+  },
+});
 
 export default BookList;
