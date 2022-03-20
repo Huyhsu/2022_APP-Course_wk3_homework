@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import Navigation from "./src/navigation";
@@ -7,9 +7,9 @@ import Navigation from "./src/navigation";
 export default function App() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Navigation />
-      </SafeAreaView>
+      {/* <SafeAreaView style={{ flex: 1 }}> */}
+      <Navigation />
+      {/* </SafeAreaView> */}
     </SafeAreaProvider>
   );
 }

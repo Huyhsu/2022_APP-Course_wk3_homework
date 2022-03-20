@@ -1,14 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-
-import Header from "../components/Header";
-import BookList from "../components/BookList";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  Pressable,
+} from "react-native";
 
 const BookDetailScreen = ({ route: { params } }) => {
   const { title, author, image, star, starCount, description, price } = params;
   return (
-    <View>
-      <Header />
+    <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.bookDetailContainerStyle}>
         <Image style={styles.bookImageStyle} source={{ uri: image }} />
         <View style={styles.bookInfoContainerStyle}>
@@ -50,7 +53,7 @@ const BookDetailScreen = ({ route: { params } }) => {
           </View>
         </Pressable>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
