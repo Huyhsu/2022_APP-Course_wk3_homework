@@ -141,7 +141,7 @@ const HomeStack = ({ Navigation }) => {
         options={{
           headerLeft: () => <Image source={require("../icon/icon_menu.png")} />,
           headerRight: () => (
-            <Pressable onPress={() => alert("Searching for Something")}>
+            <Pressable onPress={() => alert("Gotta make you understand")}>
               <Image source={require("../icon/icon_search.png")} />
             </Pressable>
           ),
@@ -152,7 +152,7 @@ const HomeStack = ({ Navigation }) => {
         component={BookDetailScreen}
         options={({ route }) => ({
           headerBackImageSource: require("../icon/icon_back.png"),
-          headerRight: ({}) => (
+          headerRight: () => (
             <Pressable onPress={() => setMarked(!marked)}>
               {marked ? (
                 <Image source={require("../icon/icon_bookmark_actived.png")} />
