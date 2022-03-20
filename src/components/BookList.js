@@ -4,28 +4,29 @@ import { View, Text, FlatList, SectionList, StyleSheet } from "react-native";
 import BookCard from "./BookCard";
 
 const BookList = ({ list, navigation }) => {
-  // Header
+  // Flat Item
+  const renderItem = ({ item }) => (
+    <BookCard book={item} navigation={navigation} />
+  );
+  // Section Header
   const renderSectionHeader = ({ section: { title, data } }) => (
     <View style={styles.sectionHeaderContainerStyle}>
       <Text style={styles.titleTextStyle}>{title}</Text>
       <FlatList
         horizontal={true}
         data={data}
-        renderItem={({ item }) => (
-          <BookCard book={item} navigation={navigation} />
-        )}
+        renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.title}
       />
     </View>
   );
-  // Item
+  // Section Item
   const renderSectionItem = () => null;
   // Section List
   return (
     <SectionList
       sections={list}
-      // contentContainerStyle={{ paddingHorizontal: 10 }}
       stickySectionHeadersEnabled={false}
       showsHorizontalScrollIndicator={false}
       renderSectionHeader={renderSectionHeader}
