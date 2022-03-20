@@ -1,16 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View, StatusBar, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import Header from "./src/components/Header";
-import BookList from "./src/components/BookList";
+import Navigation from "./src/navigation";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar />
-      <Header />
-      <BookList />
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Navigation />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

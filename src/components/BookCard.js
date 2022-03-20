@@ -1,30 +1,34 @@
 import React from "react-native";
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, Pressable } from "react-native";
 import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
-const BookCard = ({ book: { title, author, image, star } }) => {
+const BookCard = ({
+  book,
+  book: { title, author, image, star },
+  navigation,
+}) => {
   return (
     <View style={styles.bookCardContainerStyle}>
-      <Image style={styles.bookImageStyle} source={{ uri: image }}></Image>
+      <Pressable onPress={() => navigation.navigate("Detail", book)}>
+        <Image style={styles.bookImageStyle} source={{ uri: image }} />
+      </Pressable>
       {star ? (
         <View style={styles.starContainerStyle}>
           {star.map((value, index) => {
             return (
-              <>
+              <View key={index.toString() + title}>
                 {star[index] ? (
                   <Image
-                    key={index.toString()}
                     source={require("../icon/icon_star_filled.png")}
                     style={styles.starImageStyle}
                   />
                 ) : (
                   <Image
-                    key={index.toString()}
                     source={require("../icon/icon_star_empty.png")}
                     style={styles.starImageStyle}
                   />
                 )}
-              </>
+              </View>
             );
           })}
         </View>
