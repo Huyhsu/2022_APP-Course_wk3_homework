@@ -103,6 +103,7 @@ const MyDrawer = () => {
           justifyContent: "center",
         },
       }}
+      useLegacyImplementation={true}
       drawerContent={(props) => <MyDrawerContent {...props} />}
     >
       <Drawer.Screen
