@@ -53,7 +53,7 @@ const Navigation = () => {
 //   );
 // };
 
-// CustomDrawerContent (Avatar + UserName + Divider + Drawer)
+// MyDrawerContent (Avatar + UserName + Divider + MyDrawer)
 const MyDrawerContent = (props) => {
   return (
     <DrawerContentScrollView>
@@ -80,11 +80,11 @@ const MyDrawerContent = (props) => {
   );
 };
 
-// Drawer (Tabs + AccountStack + SettingStack)
+// MyDrawer (HomeTab + AccountStack + SettingStack)
 const MyDrawer = () => {
   return (
     <Drawer.Navigator
-      initialRouteName="Tabs"
+      initialRouteName="HomeTab"
       screenOptions={{
         // drawerActiveBackgroundColor:,
         drawerInactiveTintColor: "#666",
@@ -106,8 +106,8 @@ const MyDrawer = () => {
       drawerContent={(props) => <MyDrawerContent {...props} />}
     >
       <Drawer.Screen
-        name="HomeWithTabsStack"
-        component={Tabs}
+        name="HomeTab"
+        component={HomeTab}
         options={{
           headerShown: false,
           drawerLabel: "Home",
@@ -160,8 +160,8 @@ const MyDrawer = () => {
   );
 };
 
-// Tabs (HomeStack + WishListStack + MyBooksStack)
-const Tabs = () => {
+// HomeTab (HomeStack + WishListStack + MyBooksStack)
+const HomeTab = () => {
   return (
     <Tab.Navigator
       initialRouteName="HomeStack"
