@@ -1,22 +1,32 @@
 import React, { useState } from "react";
-import { Image, Pressable } from "react-native";
+import { Image, Pressable, View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+} from "@react-navigation/drawer";
 
 import BookListScreen from "../screens/BookListScreen";
 import BookDetailScreen from "../screens/BookDetailScreen";
 import WishListScreen from "../screens/WishListScreen";
 import MyBooksScreen from "../screens/MyBooksScreen";
+import AccountScreen from "../screens/AccountScreen";
+import SettingScreen from "../screens/SettingScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
       {/* <StackNavigator /> */}
-      <Tabs />
+      {/* <Tabs /> */}
+      <MyDrawer />
     </NavigationContainer>
   );
 };
@@ -42,6 +52,113 @@ const Navigation = () => {
 //     </Stack.Navigator>
 //   );
 // };
+
+// CustomDrawerContent (Avatar + UserName + Divider + Drawer)
+const MyDrawerContent = (props) => {
+  return (
+    <DrawerContentScrollView>
+      <Image
+        style={{ width: 48, height: 48, marginTop: 40, marginLeft: 16 }}
+        source={require("../img/img_avatar.png")}
+      />
+      <Text
+        style={{
+          fontSize: 24,
+          fontFamily: "Roboto",
+          fontWeight: "500",
+          marginLeft: 16,
+          marginVertical: 16,
+        }}
+      >
+        May
+      </Text>
+      <View
+        style={{ width: 300, height: 1, backgroundColor: "#EDEDEF" }}
+      ></View>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+};
+
+// Drawer (Tabs + AccountStack + SettingStack)
+const MyDrawer = () => {
+  return (
+    <Drawer.Navigator
+      initialRouteName="Tabs"
+      screenOptions={{
+        // drawerActiveBackgroundColor:,
+        drawerInactiveTintColor: "#666",
+        drawerActiveTintColor: "#6200EE",
+        drawerLabelStyle: {
+          fontSize: 14,
+          fontFamily: "Roboto",
+          fontWeight: "400",
+        },
+        drawerStyle: {
+          width: 300,
+        },
+        drawerItemStyle: {
+          height: 56,
+          // paddingHorizontal: 16,
+          justifyContent: "center",
+        },
+      }}
+      drawerContent={(props) => <MyDrawerContent {...props} />}
+    >
+      <Drawer.Screen
+        name="HomeWithTabsStack"
+        component={Tabs}
+        options={{
+          headerShown: false,
+          drawerLabel: "Home",
+          drawerIcon: ({ focused }) => (
+            <>
+              {focused ? (
+                <Image source={require("../icon/icon_home_actived.png")} />
+              ) : (
+                <Image source={require("../icon/icon_home.png")} />
+              )}
+            </>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="AccountStack"
+        component={AccountStack}
+        options={{
+          headerShown: false,
+          drawerLabel: "Account",
+          drawerIcon: ({ focused }) => (
+            <>
+              {focused ? (
+                <Image source={require("../icon/icon_account_actived.png")} />
+              ) : (
+                <Image source={require("../icon/icon_account.png")} />
+              )}
+            </>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="SettingStack"
+        component={SettingStack}
+        options={{
+          headerShown: false,
+          drawerLabel: "Setting",
+          drawerIcon: ({ focused }) => (
+            <>
+              {focused ? (
+                <Image source={require("../icon/icon_settings_actived.png")} />
+              ) : (
+                <Image source={require("../icon/icon_settings.png")} />
+              )}
+            </>
+          ),
+        }}
+      />
+    </Drawer.Navigator>
+  );
+};
 
 // Tabs (HomeStack + WishListStack + MyBooksStack)
 const Tabs = () => {
@@ -85,7 +202,7 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Wishlist"
+        name="WishlistStack"
         component={WishListStack}
         options={{
           title: "Wishlist",
@@ -103,7 +220,7 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="My Books"
+        name="MyBooksStack"
         component={MyBooksStack}
         options={{
           headerShown: false,
@@ -123,8 +240,8 @@ const Tabs = () => {
   );
 };
 
-// Stacks - Home (BookList + BookDetail)
-const HomeStack = ({ Navigation }) => {
+// Stack - Home (BookListScreen + BookDetailScreen)
+const HomeStack = ({ navigation }) => {
   const [marked, setMarked] = useState(false);
   return (
     <Stack.Navigator
@@ -139,7 +256,11 @@ const HomeStack = ({ Navigation }) => {
         name="Home"
         component={BookListScreen}
         options={{
-          headerLeft: () => <Image source={require("../icon/icon_menu.png")} />,
+          headerLeft: () => (
+            <Pressable onPress={() => navigation.openDrawer()}>
+              <Image source={require("../icon/icon_menu.png")} />
+            </Pressable>
+          ),
           headerRight: () => (
             <Pressable onPress={() => alert("Gotta make you understand")}>
               <Image source={require("../icon/icon_search.png")} />
@@ -167,18 +288,22 @@ const HomeStack = ({ Navigation }) => {
   );
 };
 
-// Stacks - Wishlist (WishList)
-const WishListStack = ({ Navigation }) => {
+// Stack - Wishlist (WishListScreen)
+const WishListStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="WishList"
         component={WishListScreen}
         options={{
           // headerShown: false,
           headerShadowVisible: false,
           title: null,
-          headerLeft: () => <Image source={require("../icon/icon_menu.png")} />,
+          headerLeft: () => (
+            <Pressable onPress={() => navigation.openDrawer()}>
+              <Image source={require("../icon/icon_menu.png")} />
+            </Pressable>
+          ),
           headerRight: () => (
             <Pressable onPress={() => alert("Searching for Something")}>
               <Image source={require("../icon/icon_search.png")} />
@@ -190,18 +315,76 @@ const WishListStack = ({ Navigation }) => {
   );
 };
 
-// Stacks - My Books (MyBooks)
-const MyBooksStack = ({ Navigation }) => {
+// Stack - My Books (MyBooksScreen)
+const MyBooksStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="MyBooks"
         component={MyBooksScreen}
         options={{
           // headerShown: false,
           headerShadowVisible: false,
           title: null,
-          headerLeft: () => <Image source={require("../icon/icon_menu.png")} />,
+          headerLeft: () => (
+            <Pressable onPress={() => navigation.openDrawer()}>
+              <Image source={require("../icon/icon_menu.png")} />
+            </Pressable>
+          ),
+          headerRight: () => (
+            <Pressable onPress={() => alert("Searching for Something")}>
+              <Image source={require("../icon/icon_search.png")} />
+            </Pressable>
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// Stack - Account (AccountScreen)
+const AccountStack = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Account"
+        component={AccountScreen}
+        options={{
+          // headerShown: false,
+          headerShadowVisible: false,
+          title: null,
+          headerLeft: () => (
+            <Pressable onPress={() => navigation.openDrawer()}>
+              <Image source={require("../icon/icon_menu.png")} />
+            </Pressable>
+          ),
+          headerRight: () => (
+            <Pressable onPress={() => alert("Searching for Something")}>
+              <Image source={require("../icon/icon_search.png")} />
+            </Pressable>
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// Stack - Setting (SettingScreen)
+const SettingStack = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Setting"
+        component={SettingScreen}
+        options={{
+          // headerShown: false,
+          headerShadowVisible: false,
+          title: null,
+          headerLeft: () => (
+            <Pressable onPress={() => navigation.openDrawer()}>
+              <Image source={require("../icon/icon_menu.png")} />
+            </Pressable>
+          ),
           headerRight: () => (
             <Pressable onPress={() => alert("Searching for Something")}>
               <Image source={require("../icon/icon_search.png")} />
